@@ -35,6 +35,11 @@ int programa(std::string op, std::string input, std::string output){
    for(const auto& arquivo : pre_precessado)
       std::cout << arquivo << std::endl;
 
+   std::ofstream salvar_arquivo(output, std::ofstream::out);
+   for(const auto& arquivo : pre_precessado)
+      salvar_arquivo << arquivo << "\n";
+   salvar_arquivo.close();
+
    return 0;
 }
 

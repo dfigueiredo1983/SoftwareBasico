@@ -92,18 +92,18 @@ void expande_if(vetor_string* saida, vetor_simbolos* Simbolos){ // IF inclui a i
         }
     }
 
-    // for(size_t i=0; i < aux.size(); ++i){
-    //     std::cout << "Simbolo: " << aux.at(i).texto << " Linha: " << aux.at(i).linha << std::endl;
-    // }
-
-    vetor_simbolos temp;
+    std::vector<int> lista_remover_IF;
     for(size_t i=0; i < aux.size(); ++i){
         while(aux.at(i).texto.compare("IF") == 0){
+            lista_remover_IF.push_back(i);
             ++i;
+            lista_remover_IF.push_back(i);
             if(aux.at(i).valor.compare("0") == 0){// Se == 0 não inlcui a proxima linha
                 ++i;
+                lista_remover_IF.push_back(i);
                 while(aux.at(i).linha == aux.at(i+1).linha){
                     ++i;
+                    lista_remover_IF.push_back(i);
                 }
                 ++i;
             }else{
@@ -111,19 +111,58 @@ void expande_if(vetor_string* saida, vetor_simbolos* Simbolos){ // IF inclui a i
             }
             std::cout << std::endl;
         }
-        temp.push_back(aux.at(i));
     }
 
-    for(size_t i=0; i < temp.size(); ++i){
-        std::string word = temp.at(i).texto + " ";
-        while( (i+1 < temp.size()) && (temp.at(i).linha == temp.at(i+1).linha) ){
-            word += temp.at(i+1).texto;
+    std::cout << "Lista de itens que devem ser removidos" << std::endl;
+    for(size_t i=0; i < lista_remover_IF.size(); ++i){
+        std::cout << "Item: " << lista_remover_IF.at(i) << std::endl;
+        aux.erase( aux.begin() + lista_remover_IF.at(i) - i  );
+    }
+
+    for(size_t i=0; i < aux.size(); ++i){
+        std::string word = aux.at(i).texto + " ";
+        while( (i+1 < aux.size()) && (aux.at(i).linha == aux.at(i+1).linha) ){
+            word += aux.at(i+1).texto;
             word += " ";
             ++i;
         }
         saida->push_back(word);
-//        std::cout << "Simbolo: " << temp.at(i).texto << " Linha: " << temp.at(i).linha << std::endl;
     }
+
+
+
+    // for(size_t i=0; i < aux.size(); ++i){
+    //     std::cout << "Simbolo: " << aux.at(i).texto << " Linha: " << aux.at(i).linha << std::endl;
+    // }
+
+    // vetor_simbolos temp;
+    // for(size_t i=0; i < aux.size(); ++i){
+    //     while(aux.at(i).texto.compare("IF") == 0){
+    //         ++i;
+    //         if(aux.at(i).valor.compare("0") == 0){// Se == 0 não inlcui a proxima linha
+    //             ++i;
+    //             while(aux.at(i).linha == aux.at(i+1).linha){
+    //                 ++i;
+    //             }
+    //             ++i;
+    //         }else{
+    //             ++i;
+    //         }
+    //         std::cout << std::endl;
+    //     }
+    //     temp.push_back(aux.at(i));
+    // }
+
+    // for(size_t i=0; i < temp.size(); ++i){
+    //     std::string word = temp.at(i).texto + " ";
+    //     while( (i+1 < temp.size()) && (temp.at(i).linha == temp.at(i+1).linha) ){
+    //         word += temp.at(i+1).texto;
+    //         word += " ";
+    //         ++i;
+    //     }
+    //     saida->push_back(word);
+//        std::cout << "Simbolo: " << temp.at(i).texto << " Linha: " << temp.at(i).linha << std::endl;
+    // }
 
 }
 
