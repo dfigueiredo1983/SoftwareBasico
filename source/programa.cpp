@@ -6,7 +6,6 @@ int programa(std::string op, std::string input, std::string output){
    std::cout << "Input: " << input << std::endl;
    std::cout << "Output: " << output << std::endl;
 
-
    if(op.length() != 2){
       std::cout << "Erro na passagem do parametro op: " << op << std::endl;
       exit(-2);
@@ -27,24 +26,14 @@ int programa(std::string op, std::string input, std::string output){
    if(!le_arquivo(input, &file)){
       std::cout << "Arquivo inexistente ou vazio." << std::endl;
    }
-   
+
    vetor_string pre_precessado;
    vetor_simbolos simbolos;
    preprocesso(file, &pre_precessado, &simbolos);
-   
-   std::cout << "Imprimir a tabela de simbolos" << std::endl;
-   for(const auto& value : simbolos){ // Veririca se a lista de simbolos foi criada com sucesso
-      std::cout << "Linha: " << value.linha;
-      std::cout << "   Simbolo: " << value.texto << std::endl;
-   }
 
-   std::cout << "Imprimir apenas as labels" << std::endl;
-   for(const auto& value : simbolos){ // Veririca se a lista de simbolos foi criada com sucesso
-      if(value.simbolo_label){
-         std::cout << value.texto << std::endl;
-      }
-   }
-
+   std::cout << "Imprimindo o arquivo de saída." << std::endl;
+   for(const auto& arquivo : pre_precessado)
+      std::cout << arquivo << std::endl;
 
    return 0;
 }

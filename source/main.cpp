@@ -1,6 +1,3 @@
-#include <iostream>
-#include <stdlib.h>
-
 #include "programa.h"
 
 int main(int argc, char* argv[]){
